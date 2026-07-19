@@ -1,0 +1,17 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Arquivos temporários
+*.tmp
+*.log
+*.bak
+
+# Node (caso adicione build/tooling no futuro)
+node_modules/

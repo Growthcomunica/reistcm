@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCM Reis Auditoria | Assessoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FAF8F3;
+    --paper-deep: #F1ECE1;
+    --ink: #12181F;
+    --muted: #5C6773;
+    --navy: #0E1A2B;
+    --navy-soft: #1B2C42;
+    --navy-line: rgba(250,248,243,0.14);
+    --brass: #AD8A46;
+    --brass-soft: #D9C48F;
+    --line: rgba(14,26,43,0.12);
+    --maxw: 1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Inter', sans-serif; font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'Newsreader', serif; font-weight:500; line-height:1.12; margin:0; letter-spacing:-0.01em; }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--brass); display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--brass); display:inline-block;}
+  .eyebrow.on-navy{color:var(--brass-soft);}
+  .eyebrow.on-navy::before{background:var(--brass-soft);}
+
+  /* header */
+  header{
+    position:sticky; top:0; z-index:50; background:rgba(14,26,43,0.96);
+    backdrop-filter:blur(6px); color:var(--paper);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:20px 0;}
+  .logo{font-family:'Newsreader', serif; font-size:19px; font-weight:600; letter-spacing:.02em; color:var(--paper);}
+  .logo b{color:var(--brass-soft); font-weight:600;}
+  .logo small{display:block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.18em; color:rgba(250,248,243,0.55); text-transform:uppercase; margin-top:2px;}
+  .nav-links{display:none; gap:30px; font-size:13.5px; color:rgba(250,248,243,0.78);}
+  @media(min-width:900px){.nav-links{display:flex;}}
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a::after{content:""; position:absolute; left:0; bottom:-2px; width:0; height:1px; background:var(--brass-soft); transition:width .25s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .btn{font-family:'Inter'; font-weight:600; font-size:13.5px; padding:11px 22px; display:inline-flex; align-items:center; gap:8px; border:1px solid transparent; cursor:pointer;}
+  .btn-brass{background:var(--brass); color:#1A1305;}
+  .btn-brass:hover{background:var(--brass-soft);}
+  .btn-line{border-color:rgba(250,248,243,0.35); color:var(--paper);}
+  .btn-line:hover{border-color:var(--paper);}
+  .nav-cta{display:none;}
+  @media(min-width:900px){.nav-cta{display:inline-flex;}}
+
+  /* hero */
+  .hero{background:var(--navy); color:var(--paper); padding:96px 0 84px; position:relative; overflow:hidden;}
+  .hero::after{content:""; position:absolute; right:-120px; top:-120px; width:420px; height:420px; border:1px solid var(--navy-line); border-radius:50%;}
+  .hero::before{content:""; position:absolute; right:-40px; top:-40px; width:280px; height:280px; border:1px solid var(--navy-line); border-radius:50%;}
+  .hero-inner{position:relative; max-width:760px;}
+  .hero h1{font-size:clamp(32px,4.6vw,50px); margin-top:20px;}
+  .hero p.lead{margin-top:22px; max-width:56ch; color:rgba(250,248,243,0.78); font-size:17.5px;}
+  .hero-actions{display:flex; flex-wrap:wrap; gap:14px; margin-top:34px;}
+  .hero-meta{display:flex; gap:36px; margin-top:56px; padding-top:26px; border-top:1px solid var(--navy-line); flex-wrap:wrap;}
+  .hero-meta div{font-size:13px; color:rgba(250,248,243,0.65);}
+  .hero-meta b{display:block; font-family:'Newsreader',serif; font-size:16px; color:var(--paper); font-weight:500; margin-bottom:3px;}
+
+  section{padding:92px 0;}
+  .section-head{max-width:660px; margin-bottom:52px;}
+  .section-head h2{font-size:clamp(26px,3.2vw,36px); margin-top:14px;}
+  .section-head p{color:var(--muted); margin-top:14px; font-size:16px;}
+
+  /* sobre */
+  .pillars-grid{display:grid; grid-template-columns:1fr; gap:1px; background:var(--line); border:1px solid var(--line);}
+  @media(min-width:760px){.pillars-grid{grid-template-columns:repeat(4,1fr);}}
+  .pillar-box{background:var(--paper); padding:30px 26px;}
+  .pillar-box h3{font-size:17px; margin-bottom:10px;}
+  .pillar-box p{margin:0; font-size:14px; color:var(--muted);}
+
+  /* services */
+  .services{background:var(--paper-deep);}
+  .service-cols{display:grid; grid-template-columns:1fr; gap:44px;}
+  @media(min-width:820px){.service-cols{grid-template-columns:repeat(2,1fr);}}
+  .service-group h3{
+    font-size:12px; font-family:'IBM Plex Mono',monospace; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--brass); font-weight:500; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--line);
+  }
+  .service-group ul{list-style:none; margin:0; padding:0;}
+  .service-group li{
+    font-size:15px; padding:13px 0; border-bottom:1px solid var(--line); color:var(--ink);
+    display:flex; gap:12px;
+  }
+  .service-group li:last-child{border-bottom:none;}
+  .service-group li::before{content:"—"; color:var(--brass); flex-shrink:0;}
+
+  /* equipe */
+  .team-grid{display:grid; grid-template-columns:1fr; gap:1px; background:var(--line); border:1px solid var(--line);}
+  @media(min-width:700px){.team-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(min-width:1040px){.team-grid{grid-template-columns:repeat(3,1fr);}}
+  .team-card{background:var(--paper); padding:28px 26px; display:flex; flex-direction:column; gap:14px;}
+  .badge{
+    width:44px; height:44px; border-radius:50%; border:1px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Newsreader',serif; font-size:15px; color:var(--brass); flex-shrink:0;
+  }
+  .team-card h3{font-size:16px;}
+  .team-card .reg{font-size:11px; color:var(--brass); letter-spacing:.04em; margin-top:2px;}
+  .team-card p{font-size:13.5px; color:var(--muted); margin:0;}
+
+  /* segmentos */
+  .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;}
+  .chip{font-family:'IBM Plex Mono',monospace; font-size:12.5px; padding:9px 15px; border:1px solid var(--line); color:var(--muted);}
+  .clientes-note{margin-top:36px; padding-top:28px; border-top:1px solid var(--line); max-width:66ch; color:var(--muted); font-size:15px;}
+
+  /* associados */
+  .assoc{background:var(--navy); color:var(--paper);}
+  .assoc .section-head p{color:rgba(250,248,243,0.72);}
+  .assoc-grid{display:grid; grid-template-columns:1fr; gap:36px;}
+  @media(min-width:820px){.assoc-grid{grid-template-columns:1.3fr .7fr;}}
+  .assoc-copy p{margin:0 0 16px; color:rgba(250,248,243,0.78); font-size:16px; max-width:60ch;}
+  .assoc-copy p:last-child{margin-bottom:0;}
+  .assoc-copy strong{color:var(--paper); font-weight:600;}
+  .assoc-list{border-top:1px solid var(--navy-line);}
+  .assoc-list div{padding:16px 0; border-bottom:1px solid var(--navy-line); font-size:13.5px; color:rgba(250,248,243,0.65); font-family:'IBM Plex Mono',monospace;}
+
+  /* contato / CTA */
+  .cta-final{background:var(--ink); color:var(--paper);}
+  .cta-final-inner{display:flex; flex-direction:column; gap:34px;}
+  @media(min-width:900px){.cta-final-inner{flex-direction:row; justify-content:space-between; align-items:flex-end;}}
+  .cta-final h2{color:var(--paper); font-size:clamp(26px,3.4vw,36px); max-width:18ch;}
+  .cta-final p{color:rgba(250,248,243,0.65); margin-top:14px; max-width:44ch;}
+  .contact-block{font-family:'IBM Plex Mono',monospace; font-size:14px; color:rgba(250,248,243,0.85); line-height:2;}
+  .contact-block a{border-bottom:1px solid rgba(250,248,243,0.3);}
+
+  footer{background:var(--ink); color:rgba(250,248,243,0.5); padding:26px 0; border-top:1px solid rgba(250,248,243,0.1);}
+  .fine{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px;}
+
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} }
+
+  /* ===== mobile menu (hamburger + drawer) ===== */
+  .hamburger{
+    display:inline-flex; flex-direction:column; justify-content:center; gap:5px;
+    width:38px; height:38px; background:none; border:none; cursor:pointer; padding:0;
+  }
+  @media(min-width:900px){.hamburger{display:none;}}
+  .hamburger span{display:block; width:22px; height:1.5px; background:var(--paper); transition:transform .25s ease, opacity .25s ease;}
+  .hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+  .mobile-drawer{
+    position:fixed; inset:0; z-index:100; background:var(--navy);
+    display:flex; flex-direction:column; padding:20px 32px 40px;
+    transform:translateY(-100%); transition:transform .32s ease;
+  }
+  .mobile-drawer.open{transform:translateY(0);}
+  @media(min-width:900px){.mobile-drawer{display:none;}}
+  .mobile-drawer-top{display:flex; align-items:center; justify-content:space-between;}
+  .mobile-drawer nav{display:flex; flex-direction:column; gap:2px; margin-top:44px;}
+  .mobile-drawer nav a{
+    font-family:'Newsreader',serif; font-size:26px; color:var(--paper); padding:16px 0;
+    border-bottom:1px solid var(--navy-line);
+  }
+  .mobile-drawer .btn{margin-top:32px; justify-content:center;}
+  @media (prefers-reduced-motion: reduce){ .mobile-drawer{transition:none;} }
+
+  /* ===== contact modal ===== */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:200; background:rgba(14,26,43,0.7);
+    display:flex; align-items:flex-end; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .25s ease;
+  }
+  @media(min-width:700px){.modal-overlay{align-items:center;}}
+  .modal-overlay.open{opacity:1; pointer-events:auto;}
+  .modal{
+    background:var(--paper); width:100%; max-width:520px; max-height:92vh; overflow-y:auto;
+    padding:36px 30px 30px; position:relative;
+    transform:translateY(24px); transition:transform .3s ease;
+  }
+  @media(min-width:700px){.modal{padding:44px;}}
+  .modal-overlay.open .modal{transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){ .modal, .modal-overlay{transition:none;} }
+  .modal-close{
+    position:absolute; top:18px; right:18px; width:34px; height:34px; border:none; background:none;
+    cursor:pointer; color:var(--muted); font-size:22px; line-height:1;
+  }
+  .modal-close:hover{color:var(--ink);}
+  .modal h2{font-size:24px; max-width:20ch;}
+  .modal p.modal-lead{color:var(--muted); font-size:14.5px; margin:12px 0 26px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;}
+  .field input, .field textarea{
+    width:100%; border:1px solid var(--line); background:var(--paper); padding:12px 14px;
+    font-family:'Inter'; font-size:14.5px; color:var(--ink); resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{outline:none; border-color:var(--brass);}
+  .field-row{display:grid; grid-template-columns:1fr; gap:0;}
+  @media(min-width:520px){.field-row{grid-template-columns:1fr 1fr; gap:16px;}}
+  .modal-submit{width:100%; justify-content:center; margin-top:6px;}
+  .modal-note{font-size:12px; color:var(--muted); margin-top:14px; text-align:center;}
+
+  /* ===== faixa "site modelo" ===== */
+  .demo-banner{
+    position:sticky; top:0; z-index:60; height:34px;
+    background:rgba(173,138,70,0.14);
+    backdrop-filter:blur(4px);
+    border-bottom:1px solid rgba(173,138,70,0.32);
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    padding:0 16px; text-align:center;
+  }
+  .demo-banner span{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:#7C5C1F;
+  }
+  .demo-banner button{
+    background:none; border:none; cursor:pointer; color:#7C5C1F; opacity:.7;
+    font-size:16px; line-height:1; padding:0;
+  }
+  .demo-banner button:hover{opacity:1;}
+  .demo-banner.hidden{display:none;}
+  .demo-banner.hidden + header{top:0;}
+  header{top:34px;}
+</style>
+</head>
+<body>
+
+<div class="demo-banner" id="demoBanner">
+  <span>Site modelo — versão para avaliação, o layout final pode receber ajustes</span>
+  <button aria-label="Fechar aviso" onclick="closeBanner()">&times;</button>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">TCM <b>Reis</b><small>Auditoria · Assessoria</small></div>
+    <nav class="nav-links">
+      <a href="#empresa">Empresa</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#clientes">Clientes</a>
+      <a href="#associados">Associados</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <button class="btn btn-brass nav-cta" onclick="openModal()">Falar com a TCM Reis</button>
+    <button class="hamburger" id="hamburgerBtn" aria-expanded="false" aria-controls="mobileDrawer" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+  <div class="mobile-drawer-top">
+    <div class="logo">TCM <b>Reis</b></div>
+    <button class="hamburger" aria-expanded="true" aria-label="Fechar menu" onclick="closeDrawer()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav>
+    <a href="#empresa" onclick="closeDrawer()">Empresa</a>
+    <a href="#servicos" onclick="closeDrawer()">Serviços</a>
+    <a href="#equipe" onclick="closeDrawer()">Equipe</a>
+    <a href="#clientes" onclick="closeDrawer()">Clientes</a>
+    <a href="#associados" onclick="closeDrawer()">Associados</a>
+    <a href="#contato" onclick="closeDrawer()">Contato</a>
+  </nav>
+  <button class="btn btn-brass" onclick="closeDrawer(); openModal();">Falar com a TCM Reis</button>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" aria-label="Fechar" onclick="closeModal()">&times;</button>
+    <div class="eyebrow">Contato</div>
+    <h2 id="modalTitle" style="margin-top:12px;">Fale com a TCM Reis</h2>
+    <p class="modal-lead">Preencha os dados abaixo. Ao enviar, sua mensagem é aberta no seu aplicativo de e-mail, endereçada para tcmreis@tcmreis.com.br.</p>
+    <form id="contactForm" onsubmit="sendContact(event)">
+      <div class="field-row">
+        <div class="field">
+          <label for="f-nome">Nome</label>
+          <input id="f-nome" type="text" required>
+        </div>
+        <div class="field">
+          <label for="f-empresa">Empresa</label>
+          <input id="f-empresa" type="text">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="f-email">E-mail</label>
+          <input id="f-email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="f-telefone">Telefone</label>
+          <input id="f-telefone" type="tel">
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-mensagem">Mensagem</label>
+        <textarea id="f-mensagem" rows="4" placeholder="Conte brevemente qual serviço sua empresa precisa."></textarea>
+      </div>
+      <button type="submit" class="btn btn-brass modal-submit">Enviar mensagem</button>
+      <div class="modal-note">Ou ligue direto: (11) 3101.6888</div>
+    </form>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow on-navy">Auditoria · Consultoria · Assessoria Empresarial</div>
+    <h1>Serviços de auditoria pensados para o negócio de cada Organização Parceira.</h1>
+    <p class="lead">A TCM Reis é uma firma de auditoria, consultoria e assessoria de empresas e negócios, formada por profissionais com experiência multiempresarial e atuação nos padrões internacionais de auditoria.</p>
+    <div class="hero-actions">
+      <button class="btn btn-brass" onclick="openModal()">Falar com a TCM Reis</button>
+      <a href="#servicos" class="btn btn-line">Ver serviços</a>
+    </div>
+    <div class="hero-meta">
+      <div><b>Av. Paulista, 509</b>5º andar, Conj. 510 — São Paulo/SP</div>
+      <div><b>(11) 3101.6888</b>tcmreis@tcmreis.com.br</div>
+      <div><b>8 especialistas</b>contábeis e tributários na equipe técnica</div>
+    </div>
+  </div>
+</section>
+
+<section id="empresa">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Nossa empresa</div>
+      <h2>Relacionamento próximo, solução objetiva.</h2>
+      <p>A TCM Reis foi instituída por ideal dos sócios e incentivada por Organizações Parceiras que depositaram confiança nas competências reunidas na firma. O relacionamento próximo e a apresentação de soluções simplificadas e objetivas têm por meta agregar valor ao negócio da Organização e fortalecer continuamente a parceria.</p>
+    </div>
+    <div class="pillars-grid reveal">
+      <div class="pillar-box">
+        <h3>Visão</h3>
+        <p>Atuar em sistema de parceria com a Organização, promovendo racionalidade, agilidade, modernidade e eficácia no desempenho da gestão focada nos objetivos do negócio.</p>
+      </div>
+      <div class="pillar-box">
+        <h3>Filosofia</h3>
+        <p>Pleno atendimento à Organização Parceira através de liderança e responsabilidade, comunicação efetiva, planejamento dos trabalhos, qualidade e integridade.</p>
+      </div>
+      <div class="pillar-box">
+        <h3>Objetivos</h3>
+        <p>Otimizar os serviços oferecidos através da excelência em qualidade, apoiando a Organização Parceira no desenvolvimento dos negócios.</p>
+      </div>
+      <div class="pillar-box">
+        <h3>Combinação de recursos</h3>
+        <p>Esforços individuais reunidos para realizar propósitos coletivos, apoiando a Organização Parceira a gerenciar riscos e obter sucesso nos negócios.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="servicos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Serviços</div>
+      <h2>Onde a TCM Reis atua</h2>
+      <p>Auditoria contábil, de gestão e tributária; estruturação societária; e perícia — nos padrões internacionais de auditoria.</p>
+    </div>
+    <div class="service-cols reveal">
+      <div class="service-group">
+        <h3>Auditoria &amp; Controles</h3>
+        <ul>
+          <li>Auditoria Contábil (asseguração razoável e limitada)</li>
+          <li>Auditoria de Gestão Operacional</li>
+          <li>Auditoria de Gestão de Caixa</li>
+          <li>Auditoria de Gestão Tributária</li>
+          <li>Implementação de Controles Internos</li>
+          <li>Validação de Processos de Inventário de Mercadorias</li>
+        </ul>
+      </div>
+      <div class="service-group">
+        <h3>Gestão &amp; Estruturação</h3>
+        <ul>
+          <li>Implantação de Sistemas de Gestão Corporativa</li>
+          <li>Reorganização da Estrutura de Empresas em Expansão</li>
+          <li>Adequação da Estrutura de Grupo Empresarial e Assistência à Administração Familiar</li>
+          <li>Implantação de Método de Custeio para Produtos e Serviços</li>
+          <li>Elaboração de Planos de Negócios para Propósito Específico</li>
+        </ul>
+      </div>
+      <div class="service-group">
+        <h3>Operações Societárias</h3>
+        <ul>
+          <li>Assessoria em Processos de Aquisição, Fusão e Cisão</li>
+          <li>Avaliação Econômico-financeira de Empresas</li>
+          <li>Due Diligence na Aquisição de Empresas ou Projetos</li>
+          <li>Apuração de Haveres de Sócios ou Herdeiros Remanescentes</li>
+        </ul>
+      </div>
+      <div class="service-group">
+        <h3>Perícia</h3>
+        <ul>
+          <li>Perícia Judicial e Extrajudicial Contábil</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="equipe">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Equipe técnica</div>
+      <h2>Experiência multiempresarial reunida em um único time</h2>
+      <p>Profissionais que atuaram como responsáveis diretos, gerentes e encarregados por carteiras de clientes de auditoria e consultoria, em empresas de porte nacional e internacional.</p>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card">
+        <div class="badge">CT</div>
+        <div><h3>Claudio Marcio Trovão</h3><div class="reg">CRC 216.431/0-9</div></div>
+        <p>Auditor Fiscal e Consultor Tributário. Pós-graduado em Direito Tributário e em IFRS (FECAP). Mais de 20 anos em recuperação de créditos tributários e planejamento societário/tributário.</p>
+      </div>
+      <div class="team-card">
+        <div class="badge">AR</div>
+        <div><h3>Antonio Zacarias Reis</h3><div class="reg">CRC 257.241/0-P · CNAI 22152</div></div>
+        <p>Auditor Contábil com pós-graduação em Controladoria e Terceiro Setor (FECAP). Mais de 20 anos de experiência profissional.</p>
+      </div>
+      <div class="team-card">
+        <div class="badge">LG</div>
+        <div><h3>Luiz Gonsaga</h3><div class="reg">CRC 094.461 · CNAI 3657</div></div>
+        <p>Auditor Contábil com pós-graduação em Controladoria Estratégica. Mais de 20 anos de experiência profissional.</p>
+      </div>
+      <div class="team-card">
+        <div class="badge">MA</div>
+        <div><h3>Marcelo Adelino</h3><div class="reg">CRC 322.658-O1</div></div>
+        <p>Pós-graduado em Planejamento Societário e Tributário (IBET-PE); MBA em Gerenciamento de Projetos (IBMEC) e em Administração Financeira e Controladoria (FGV).</p>
+      </div>
+      <div class="team-card">
+        <div class="badge">FD</div>
+        <div><h3>Fernando Dubeux</h3><div class="reg">CRC 030.317/O</div></div>
+        <p>Atuação em auditoria fiscal, levantamento de créditos tributários e diagnósticos de contingências fiscais em diversos setores.</p>
+      </div>
+      <div class="team-card">
+        <div class="badge">AB</div>
+        <div><h3>Adalberto Barros Neto</h3><div class="reg">OAB/DF 34964</div></div>
+        <p>Mestre em Direito Tributário (PUC/SP). Atuação em tribunais judiciais e administrativos (CARF e TARF) e planejamento tributário há mais de 10 anos.</p>
+      </div>
+      <div class="team-card">
+        <div class="badge">EE</div>
+        <div><h3>Erick Endrilho</h3><div class="reg">OAB/DF 15827</div></div>
+        <p>Especialista em Direito Tributário. Membro da APET e da Comissão de Assuntos Tributários da OAB/DF; Presidente da Comissão de Reforma Tributária.</p>
+      </div>
+      <div class="team-card">
+        <div class="badge">JM</div>
+        <div><h3>Joicy Leide Montalvão</h3><div class="reg">OAB/DF 59860</div></div>
+        <p>Pós-graduanda em Direito Tributário. Atuação em Consultoria e Assessoria Tributária e no Conselho Administrativo de Recursos Fiscais (CARF).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="clientes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Empresas-cliente</div>
+      <h2>Setores atendidos pela TCM Reis</h2>
+      <p>Organizações que depositaram confiança nos nossos serviços atuam, atualmente, nos seguintes segmentos de mercado:</p>
+    </div>
+    <div class="chips reveal">
+      <div class="chip">Construção Civil</div>
+      <div class="chip">Transportes de Cargas</div>
+      <div class="chip">Sistemas de Comunicação</div>
+      <div class="chip">Editora</div>
+      <div class="chip">Indústria e Metalurgia</div>
+      <div class="chip">Máquinas Pesadas e Autopeças</div>
+      <div class="chip">Eletroeletrônicos</div>
+      <div class="chip">Terceiro Setor</div>
+    </div>
+    <div class="clientes-note reveal">
+      A experiência multiempresarial da equipe se estende ainda a comércio (lojas de departamento, calçadista, automóveis, hipermercados), serviços (hospitalar, tecnologia, armazéns gerais, ensino superior) e setor financeiro (corretoras, DTVM, consórcios, bancos comerciais).
+    </div>
+  </div>
+</section>
+
+<section class="assoc" id="associados">
+  <div class="wrap assoc-grid">
+    <div class="reveal">
+      <div class="eyebrow on-navy">Associados</div>
+      <h2 style="color:var(--paper); margin-top:14px; font-size:clamp(26px,3.2vw,34px);">Uma rede de especialistas por trás de cada demanda</h2>
+      <div class="assoc-copy" style="margin-top:22px;">
+        <p>Para atender a variadas demandas recorridas pelas empresas-cliente, a TCM Reis mantém associação com firmas e profissionais especializados de áreas relacionadas à sua atividade.</p>
+        <p>A Assessoria Jurídica de contencioso, organização societária, planos tributários e recuperação de impostos é assessorada pelo escritório <strong>Magalhães Peixoto Consultores &amp; Advogados</strong>, cujo titular é Presidente-fundador da APET, Membro do CARF e Juiz do TIT-SP.</p>
+        <p>A rede conta ainda com associados em Engenharia Ambiental e de Projetos Estruturais, Tecnologia da Informação e OS&amp;M Empresarial e Recursos Humanos — além da <strong>MP Editora</strong>, especializada em publicações no segmento tributário.</p>
+      </div>
+    </div>
+    <div class="assoc-list reveal">
+      <div>Magalhães Peixoto Consultores &amp; Advogados</div>
+      <div>APET — Associação Paulista de Estudos Tributários</div>
+      <div>MP Editora</div>
+      <div>Engenharia Ambiental &amp; Projetos Estruturais</div>
+      <div>Tecnologia da Informação &amp; Segurança de Sistemas</div>
+      <div>OS&amp;M Empresarial &amp; Recursos Humanos</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="contato">
+  <div class="wrap cta-final-inner">
+    <div class="reveal">
+      <div class="eyebrow">Contato</div>
+      <h2>Estabelecida no tradicional centro financeiro de São Paulo.</h2>
+      <p>A TCM Reis coloca à disposição um canal de comunicação para Organizações que demandem os serviços que oferecemos.</p>
+    </div>
+    <div class="contact-block reveal">
+      <div>Av. Paulista, 509 — 5º andar</div>
+      <div>Conj. 510 — São Paulo/SP — CEP 01.311-000</div>
+      <div><a href="tel:+551131016888">(11) 3101.6888</a></div>
+      <div><a href="mailto:tcmreis@tcmreis.com.br">tcmreis@tcmreis.com.br</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fine">
+    <span>© 2026 TCM Reis Auditoria e Assessoria — Empresas e Negócios</span>
+    <span>Layout conceitual, baseado no conteúdo atual do site</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* faixa "site modelo" */
+  function closeBanner(){
+    document.getElementById('demoBanner').classList.add('hidden');
+  }
+
+  /* mobile drawer */
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const drawer = document.getElementById('mobileDrawer');
+
+  function openDrawer(){
+    drawer.classList.add('open');
+    hamburgerBtn.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded','false');
+    if(!modalOverlay.classList.contains('open')) document.body.style.overflow = '';
+  }
+  hamburgerBtn.addEventListener('click', ()=>{
+    drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+  });
+
+  /* contact modal */
+  const modalOverlay = document.getElementById('modalOverlay');
+
+  function openModal(){
+    modalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(()=>document.getElementById('f-nome').focus(), 50);
+  }
+  function closeModal(){
+    modalOverlay.classList.remove('open');
+    if(!drawer.classList.contains('open')) document.body.style.overflow = '';
+  }
+  modalOverlay.addEventListener('click', (e)=>{ if(e.target === modalOverlay) closeModal(); });
+
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape'){ closeModal(); closeDrawer(); }
+  });
+
+  function sendContact(e){
+    e.preventDefault();
+    const nome = document.getElementById('f-nome').value;
+    const empresa = document.getElementById('f-empresa').value;
+    const email = document.getElementById('f-email').value;
+    const telefone = document.getElementById('f-telefone').value;
+    const mensagem = document.getElementById('f-mensagem').value;
+
+    const subject = encodeURIComponent('Contato via site — ' + nome);
+    const body = encodeURIComponent(
+      'Nome: ' + nome + '\n' +
+      'Empresa: ' + empresa + '\n' +
+      'E-mail: ' + email + '\n' +
+      'Telefone: ' + telefone + '\n\n' +
+      'Mensagem:\n' + mensagem
+    );
+    window.location.href = 'mailto:tcmreis@tcmreis.com.br?subject=' + subject + '&body=' + body;
+  }
+</script>
+
+</body>
+</html>
